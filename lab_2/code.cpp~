@@ -1,0 +1,41 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+int main()
+{
+  ifstream in; int n,Awidth,Aheight,Bwidth,Bheight,Cwidth,Cheight;
+  in.open("in.txt");
+  if (!in)
+      count << "Error! Cannot open file\n";
+  else
+    {
+    
+  in >> n;
+  Awidth=n;
+  Aheight=n;
+  Bwidth=n;
+  Bheight=n;
+  Cwidth=n;
+  Cheight=n;
+  int A[Aheight][Awidth], B[Bheight][Bwidth];
+  for (int i=0;i<Aheight;i++)
+    {
+      for (int j=0;j<Awidth;j++)
+	{
+	  in >> A[i][j];
+	  cout << A[i][j];
+	}
+      
+    }
+  for (int i=0;i<Bheight;i++)
+    {
+      for (int j=0;j<Bwidth;j++)
+	{
+	  in >> B[i][j];
+	  cout << B[i][j];
+	}
+    }
+    }
+   
+  
+}
