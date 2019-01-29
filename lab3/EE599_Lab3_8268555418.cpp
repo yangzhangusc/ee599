@@ -1,0 +1,400 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+class Pancake
+{
+ protected:
+  int size;
+  bool burnt;
+ public:
+  int Size()
+  {
+    return size;
+  }
+  bool Burnt()
+  {
+    return burnt;
+  }
+  void initial(ifstream &in)
+  {
+    char comma;
+    in >> size >> comma >> burnt;
+  }
+  void setSize(int a)
+  {
+    size=a;
+  }
+  void setBurnt(bool a)
+  {
+    burnt=a;
+  }
+  
+  void flip_pancake()
+  {
+    burnt=!burnt;
+  }
+};
+
+class PancakePile : public Pancake
+{
+  protected:
+  int z;
+  Pancake *p=new Pancake[512];
+  
+  public:
+  void setZ(int a)
+  {
+    z=a;
+  }
+  void setArray(ifstream &in)
+  {
+      
+    for (int i=0;i<z;i++){
+      
+      p[i].initial(in);
+      
+    }
+      
+         
+  }
+  void pancake_sort_descending()
+  {
+        Pancake max,temp1,temp2;int id;
+   
+    for (int m=0;m<z;m++)
+       {  max=p[m];
+     
+	for(int i=m;i<z;i++)
+	  
+	{ 
+	   
+          if(max.Size()<=p[i].Size())
+	  {
+	    max=p[i];
+	    id=i;
+	  }
+	  
+	  
+       	
+        }
+	
+	//	cout<<p[id].Size()<<" ";
+	/*  if(p[id].Burnt()==1)
+	{
+	  p[id].flip_pancake();
+	  }*/
+	 for(int j=id;j<(z-id)/2+id;j++)
+	{
+	  //p[j].flip_pancake();
+	  // p[id+z-1-j].flip_pancake();
+	  temp1=p[j];
+	  p[j]=p[id+z-1-j];
+	  p[id+z-1-j]=temp1;
+	}
+
+	 
+	 
+      for(int n=m;n<(z-m)/2+m;n++)
+	{
+	  // p[n].flip_pancake();
+	  //p[m+z-1-n].flip_pancake();
+	  temp2=p[n];
+	  p[n]=p[m+z-1-n];
+	  p[m+z-1-n]=temp2;
+	}
+      
+      
+    
+	 
+       } 
+  }
+  void pancake_sort_ascending()
+  {
+       Pancake min,temp1,temp2;int id;
+ 
+    for (int m=0;m<z;m++)
+       {  min=p[m];
+     
+	for(int i=m;i<z;i++)
+	  
+	{ 
+	   
+          if(min.Size()>=p[i].Size())
+	  {
+	    min=p[i];
+	    id=i;
+	  }
+	  
+	  
+       	
+        }
+	
+	//	cout<<p[id].Size()<<" ";
+	/* if(p[id].Burnt()==1)
+	{
+	  p[id].flip_pancake();
+	  }*/
+	 for(int j=id;j<(z-id)/2+id;j++)
+	{
+	  //p[j].flip_pancake();
+	  // p[id+z-1-j].flip_pancake();
+	  temp1=p[j];
+	  p[j]=p[id+z-1-j];
+	  p[id+z-1-j]=temp1;
+	}
+
+	 
+	 
+      for(int n=m;n<(z-m)/2+m;n++)
+	{
+	  // p[n].flip_pancake();
+	  //p[m+z-1-n].flip_pancake();
+	  temp2=p[n];
+	  p[n]=p[m+z-1-n];
+	  p[m+z-1-n]=temp2;
+	}
+ 
+      
+      
+    
+	 
+       } 
+    
+  }
+  void pancake_sort_descending_burnt_up()
+  {
+     Pancake max,temp1,temp2;int id;
+  
+    for (int m=0;m<z;m++)
+       {  max=p[m];
+     
+	for(int i=m;i<z;i++)
+	  
+	{ 
+	   
+          if(max.Size()<=p[i].Size())
+	  {
+	    max=p[i];
+	    id=i;
+	  }
+	  
+	  
+       	
+        }
+	
+	//	cout<<p[id].Size()<<" ";
+       if(p[id].Burnt()==0)
+	{
+	  p[id].flip_pancake();
+	}
+	 for(int j=id;j<(z-id)/2+id;j++)
+	{
+	  //p[j].flip_pancake();
+	  // p[id+z-1-j].flip_pancake();
+	  temp1=p[j];
+	  p[j]=p[id+z-1-j];
+	  p[id+z-1-j]=temp1;
+	}
+
+	 
+	 
+      for(int n=m;n<(z-m)/2+m;n++)
+	{
+	  // p[n].flip_pancake();
+	  //p[m+z-1-n].flip_pancake();
+	  temp2=p[n];
+	  p[n]=p[m+z-1-n];
+	  p[m+z-1-n]=temp2;
+	}
+   
+      
+      
+    
+	 
+       } 
+  }
+
+  void pancake_sort_ascending_burnt_down()
+  {
+    Pancake min,temp1,temp2;int id;
+    /* for(int m=0;m<z;m++)
+      { max=p[m];
+      cout << max.Size()<< " " << max.Burnt()<<endl;}*/
+    for (int m=0;m<z;m++)
+       {  min=p[m];
+     
+	for(int i=m;i<z;i++)
+	  
+	{ 
+	   
+          if(min.Size()>=p[i].Size())
+	  {
+	    min=p[i];
+	    id=i;
+	  }
+	  
+	  
+       	
+        }
+	
+	//	cout<<p[id].Size()<<" ";
+       if(p[id].Burnt()==1)
+	{
+	  p[id].flip_pancake();
+	}
+	 for(int j=id;j<(z-id)/2+id;j++)
+	{
+	  //p[j].flip_pancake();
+	  // p[id+z-1-j].flip_pancake();
+	  temp1=p[j];
+	  p[j]=p[id+z-1-j];
+	  p[id+z-1-j]=temp1;
+	}
+
+	 
+	 
+      for(int n=m;n<(z-m)/2+m;n++)
+	{
+	  // p[n].flip_pancake();
+	  //p[m+z-1-n].flip_pancake();
+	  temp2=p[n];
+	  p[n]=p[m+z-1-n];
+	  p[m+z-1-n]=temp2;
+	}
+      // for(int s=m;s<z;s++)
+      //{
+      //  p[s].flip_pancake();
+      //}
+      // cout<<p[m].Size()<<endl;
+      
+      
+      
+    
+	 
+       }  
+  }
+  void print()
+  {for (int i=0;i<z;i++){
+    printf("%d ",p[i].Size());
+    printf("%d ",p[i].Burnt());
+    if(i==z-1)
+      cout<<endl;
+    }
+  }
+  void output(ofstream &out)
+  {
+    for(int i=0;i<z;i++)
+      {
+	out<<p[i].Size()<<","<<p[i].Burnt()<<" ";
+      }
+    out << "\n";
+  }
+  
+    
+  
+  };
+
+class MPancakePiles :public PancakePile
+{
+protected:
+  int x,y;
+  PancakePile **q=new PancakePile *[512];
+  
+
+public:
+  void setXY(int a, int b)
+  {
+    x=a;
+    y=b;
+    
+  }
+  void createArray()
+  {
+    for (int i=0;i<512;i++)
+      q[i]=new PancakePile[512];
+  }
+  void setXYZArray(int a,ifstream &in)
+  {
+      
+    for (int i=0;i<x;i++)
+      for(int j=0;j<y;j++)
+	{ q[i][j].setZ(a);
+	  q[i][j].setArray(in);
+	  
+	}
+  }
+
+  void sort_interior()
+  {
+    for(int i=1;i<x-1;i++)
+      for(int j=1;j<y-1;j++)
+	{
+	  q[i][j].pancake_sort_ascending_burnt_down();
+	  
+	}
+  }
+  void sort_exterior()
+  { for(int i=0;i<y;i++)
+   {
+    q[0][i].pancake_sort_descending_burnt_up();
+    q[x-1][i].pancake_sort_descending_burnt_up();
+   }
+    for(int j=1;j<x-1;j++)
+      {
+	q[j][0].pancake_sort_descending_burnt_up();
+	q[j][y-1].pancake_sort_descending_burnt_up();
+      }
+
+  }
+  void printArray()
+  {
+   for(int i=0;i<x;i++)
+    for(int j=0;j<y;j++)
+      {
+	q[i][j].print();
+      }
+      
+  }
+  void outputArray(ofstream &out)
+  {
+    for(int i=0;i<x;i++)
+      for(int j=0;j<y;j++)
+	{
+	  q[i][j].output(out);
+	}
+  }
+  };
+
+
+int main()
+{
+  int x,y,z;
+  MPancakePiles mpancakePile;
+  // create Pancake
+  ifstream in("input.txt");
+  ofstream out("output.txt");
+  if(!in)
+    cout << "Error! Cannot open the file\n";
+  else
+    {
+      in >>x >> y >>z;
+      mpancakePile.createArray();
+      mpancakePile.setXY(x,y);
+      mpancakePile.setXYZArray(z,in);
+      //mpancakePile.printArray();
+    }
+  //sorting
+    mpancakePile.sort_exterior();
+    mpancakePile.sort_interior();
+    // mpancakePile.printArray();
+    out<<x<<" "<<y<<" "<<z<<"\n";
+    mpancakePile.outputArray(out);
+    in.close();
+    out.close();
+    
+  
+
+
+     
+}
