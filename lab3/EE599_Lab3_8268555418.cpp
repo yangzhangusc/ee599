@@ -47,6 +47,7 @@ class PancakePile : public Pancake
   {
     z=a;
   }
+  //input pile of z
   void setArray(ifstream &in)
   {
       
@@ -58,12 +59,18 @@ class PancakePile : public Pancake
       
          
   }
+  void deleteArrat()
+  {
+    delete []p;
+  }
+  //sort descendingly
   void pancake_sort_descending()
   {
         Pancake max,temp1,temp2;int id;
    
     for (int m=0;m<z;m++)
-       {  max=p[m];
+      {//look for the max in pile of m
+	 max=p[m];
      
 	for(int i=m;i<z;i++)
 	  
@@ -78,27 +85,21 @@ class PancakePile : public Pancake
 	  
        	
         }
-	
-	//	cout<<p[id].Size()<<" ";
-	/*  if(p[id].Burnt()==1)
-	{
-	  p[id].flip_pancake();
-	  }*/
+	// flip the pancake above max (including max)
+       
 	 for(int j=id;j<(z-id)/2+id;j++)
 	{
-	  //p[j].flip_pancake();
-	  // p[id+z-1-j].flip_pancake();
+
 	  temp1=p[j];
 	  p[j]=p[id+z-1-j];
 	  p[id+z-1-j]=temp1;
 	}
 
 	 
-	 
+	 //flip all pancake 
       for(int n=m;n<(z-m)/2+m;n++)
 	{
-	  // p[n].flip_pancake();
-	  //p[m+z-1-n].flip_pancake();
+	  
 	  temp2=p[n];
 	  p[n]=p[m+z-1-n];
 	  p[m+z-1-n]=temp2;
@@ -130,15 +131,10 @@ class PancakePile : public Pancake
        	
         }
 	
-	//	cout<<p[id].Size()<<" ";
-	/* if(p[id].Burnt()==1)
-	{
-	  p[id].flip_pancake();
-	  }*/
+
 	 for(int j=id;j<(z-id)/2+id;j++)
 	{
-	  //p[j].flip_pancake();
-	  // p[id+z-1-j].flip_pancake();
+        
 	  temp1=p[j];
 	  p[j]=p[id+z-1-j];
 	  p[id+z-1-j]=temp1;
@@ -148,8 +144,7 @@ class PancakePile : public Pancake
 	 
       for(int n=m;n<(z-m)/2+m;n++)
 	{
-	  // p[n].flip_pancake();
-	  //p[m+z-1-n].flip_pancake();
+
 	  temp2=p[n];
 	  p[n]=p[m+z-1-n];
 	  p[m+z-1-n]=temp2;
@@ -182,16 +177,14 @@ class PancakePile : public Pancake
 	  
        	
         }
-	
-	//	cout<<p[id].Size()<<" ";
+	//check burnt side and flip if burnt side down
        if(p[id].Burnt()==0)
 	{
 	  p[id].flip_pancake();
 	}
 	 for(int j=id;j<(z-id)/2+id;j++)
 	{
-	  //p[j].flip_pancake();
-	  // p[id+z-1-j].flip_pancake();
+	  
 	  temp1=p[j];
 	  p[j]=p[id+z-1-j];
 	  p[id+z-1-j]=temp1;
@@ -201,8 +194,6 @@ class PancakePile : public Pancake
 	 
       for(int n=m;n<(z-m)/2+m;n++)
 	{
-	  // p[n].flip_pancake();
-	  //p[m+z-1-n].flip_pancake();
 	  temp2=p[n];
 	  p[n]=p[m+z-1-n];
 	  p[m+z-1-n]=temp2;
@@ -218,9 +209,7 @@ class PancakePile : public Pancake
   void pancake_sort_ascending_burnt_down()
   {
     Pancake min,temp1,temp2;int id;
-    /* for(int m=0;m<z;m++)
-      { max=p[m];
-      cout << max.Size()<< " " << max.Burnt()<<endl;}*/
+
     for (int m=0;m<z;m++)
        {  min=p[m];
      
@@ -238,15 +227,14 @@ class PancakePile : public Pancake
        	
         }
 	
-	//	cout<<p[id].Size()<<" ";
+
        if(p[id].Burnt()==1)
 	{
 	  p[id].flip_pancake();
 	}
 	 for(int j=id;j<(z-id)/2+id;j++)
 	{
-	  //p[j].flip_pancake();
-	  // p[id+z-1-j].flip_pancake();
+	  
 	  temp1=p[j];
 	  p[j]=p[id+z-1-j];
 	  p[id+z-1-j]=temp1;
@@ -256,18 +244,12 @@ class PancakePile : public Pancake
 	 
       for(int n=m;n<(z-m)/2+m;n++)
 	{
-	  // p[n].flip_pancake();
-	  //p[m+z-1-n].flip_pancake();
+	  
 	  temp2=p[n];
 	  p[n]=p[m+z-1-n];
 	  p[m+z-1-n]=temp2;
 	}
-      // for(int s=m;s<z;s++)
-      //{
-      //  p[s].flip_pancake();
-      //}
-      // cout<<p[m].Size()<<endl;
-      
+     
       
       
     
@@ -313,6 +295,13 @@ public:
   {
     for (int i=0;i<512;i++)
       q[i]=new PancakePile[512];
+  }
+  void deleteXYZArray()
+  {
+    for(int i=0;i<512;i++)
+      delete q[i];
+    delete []q;
+    
   }
   void setXYZArray(int a,ifstream &in)
   {
@@ -382,14 +371,15 @@ int main()
       mpancakePile.createArray();
       mpancakePile.setXY(x,y);
       mpancakePile.setXYZArray(z,in);
-      //mpancakePile.printArray();
+     
     }
   //sorting
     mpancakePile.sort_exterior();
     mpancakePile.sort_interior();
-    // mpancakePile.printArray();
+    
     out<<x<<" "<<y<<" "<<z<<"\n";
     mpancakePile.outputArray(out);
+    mpancakePile.deleteXYZArray();
     in.close();
     out.close();
     
