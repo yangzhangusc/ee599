@@ -1,0 +1,38 @@
+Starting program: /home/student/ee599/lab4/ee599-lab4-yangzhangusc/a.out 
+Please enter n:
+
+Breakpoint 2, main () at brokengdb1.cpp:11
+11	    cin>>n;
+(gdb) 10
+Undefined command: "10".  Try "help".
+(gdb) s
+10
+12	    long val=factorial(n);
+(gdb) print val
+$1 = 140737488346800
+(gdb) s
+factorial (n=10) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) print n
+$2 = 10
+(gdb) s
+22	        return  factorial(n--)*n;
+(gdb) print n
+$3 = 10
+(gdb) print val
+No symbol "val" in current context.
+(gdb) s
+factorial (n=10) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) print val
+No symbol "val" in current context.
+(gdb) s
+22	        return  factorial(n--)*n;
+(gdb) print n
+$4 = 10
+(gdb) s
+factorial (n=10) at brokengdb1.cpp:21
+21	    if(n)
+(gdb) print n
+$5 = 10
+

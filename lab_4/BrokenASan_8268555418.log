@@ -1,0 +1,53 @@
+student@studentVM:~/ee599/lab4/ee599-lab4-yangzhangusc$ g++ -fsanitize=address -ggdb -o test BrokenASan.cpp
+student@studentVM:~/ee599/lab4/ee599-lab4-yangzhangusc$ ./test=================================================================
+==2975==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffe2378cf78 at pc 0x000000400a14 bp 0x7ffe2378cec0 sp 0x7ffe2378ceb0
+READ of size 4 at 0x7ffe2378cf78 thread T0
+    #0 0x400a13 in partition(int*, int, int) /home/student/ee599/lab4/ee599-lab4-yangzhangusc/BrokenASan.cpp:5
+    #1 0x400d63 in quickSort(int*, int, int) /home/student/ee599/lab4/ee599-lab4-yangzhangusc/BrokenASan.cpp:34
+    #2 0x400f04 in main /home/student/ee599/lab4/ee599-lab4-yangzhangusc/BrokenASan.cpp:54
+    #3 0x7fb5cb00782f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
+    #4 0x4008e8 in _start (/home/student/ee599/lab4/ee599-lab4-yangzhangusc/test+0x4008e8)
+
+Address 0x7ffe2378cf78 is located in stack of thread T0 at offset 56 in frame
+    #0 0x400e37 in main /home/student/ee599/lab4/ee599-lab4-yangzhangusc/BrokenASan.cpp:51
+
+  This frame has 1 object(s):
+    [32, 56) 'arr' <== Memory access at offset 56 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism or swapcontext
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow /home/student/ee599/lab4/ee599-lab4-yangzhangusc/BrokenASan.cpp:5 partition(int*, int, int)
+Shadow bytes around the buggy address:
+  0x1000446e9990: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000446e99a0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000446e99b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000446e99c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000446e99d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x1000446e99e0: 00 00 00 00 00 00 00 00 f1 f1 f1 f1 00 00 00[f4]
+  0x1000446e99f0: f3 f3 f3 f3 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000446e9a00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000446e9a10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000446e9a20: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x1000446e9a30: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Heap right redzone:      fb
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack partial redzone:   f4
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+==2975==ABORTING
+student@studentVM:~/ee599/lab4/ee599-lab4-yangzhangusc$ g++ -fsanitize=address -ggdb -o test BrokenASan.cpp
+student@studentVM:~/ee599/lab4/ee599-lab4-yangzhangusc$ ./test
+Sorted array: n1 5 7 8 9 10 n
