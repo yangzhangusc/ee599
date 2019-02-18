@@ -1,0 +1,108 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+#include<sstream>
+#include<cctype>
+using namespace std;
+
+
+
+void print(string s[],int n);
+void reverse(string s[], int n);
+void order(string s[],int n);
+
+int main()
+{ string s1[10];
+  string s;
+  int n=0;
+  
+  ifstream in("input.txt");
+ 
+   for(int i=0;i<10;i++)
+    { 
+      in>>s1[i];
+    }
+   for(int i=0;i<10;i++)
+     if(s1[i]!="")
+       {
+	 n=n+1;
+       }
+   const int  m=n;
+   string s2[m];
+   for(int i=0;i<m;i++)
+     {
+       s2[i]=s1[i];
+     }
+   print(s2,m);
+   reverse(s2,m);
+   order(s2,m);
+   return 0;
+   
+  
+}
+
+void print(string s[],int n)
+{
+  for(int i=0;i<n;i++)
+    {
+      if(i<n-1)
+	{
+	  cout<<s[i]<<" ";
+	}
+      else
+	{
+	  cout<<s[i]<<endl;
+	}
+    }
+}
+void reverse(string s[],int n)
+{ofstream out("output.txt");
+  for(int i=n-1;i>=0;i--)
+    {
+      if(i>0)
+	{
+	  out<<s[i]<<" ";
+	}
+      else
+	{
+	  out<<s[i]<<endl;
+	}
+    }
+}
+
+void order(string s[],int n)
+{ string temp;
+  ofstream out("output2.txt");
+  for(int i=0;i<n-1;i++)
+    for(int j=i+1;j<n;j++)
+      { if(isdigit(s[i].at(0)) || isdigit(s[j].at(0)))
+	  {
+	   if(s[i].at(0)<s[j].at(0))
+	  {
+	    temp=s[i];
+	    s[i]=s[j];
+	    s[j]=temp;
+	  }
+	  }
+	else
+	  {
+	if(toupper(s[i].at(0))>toupper(s[j].at(0)))
+	  {
+	    temp=s[i];
+	    s[i]=s[j];
+	    s[j]=temp;
+	  }
+	  }
+      }
+  for(int i=0;i<n;i++)
+    {
+      if(i<n-1)
+	{
+	  out<<s[i]<<" ";
+	}
+      else
+	{
+	  out<<s[i]<<endl;
+	}
+    }
+}
